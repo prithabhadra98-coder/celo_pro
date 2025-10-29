@@ -14,7 +14,8 @@ This project demonstrates core blockchain principles:
 ## 🚀 What It Does
 DeckChain allows users to:
 1. **Create cards** with custom names and metadata (like an image or JSON attributes).  
-2. **Build decks** by selecting a combination of existing cards.  
+2. **Build decks** by selecting a![Uploading Screenshot 2025-10-29 150541.png…]()
+ combination of existing cards.  
 3. **Shuffle decks** in a pseudo-random order.  
 4. **Draw cards** one by one, just like in a physical card game.  
 5. **Check remaining cards** in any deck.  
