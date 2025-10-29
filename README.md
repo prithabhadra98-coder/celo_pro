@@ -14,7 +14,7 @@ This project demonstrates core blockchain principles:
 ## 🚀 What It Does
 DeckChain allows users to:
 1. **Create cards** with custom names and metadata (like an image or JSON attributes).  
-2. **Build decks** by selecting a![Uploading Screenshot 2025-10-29 150541.png…]()
+2. **Build decks** by selecting a<img width="1919" height="921" alt="Screenshot 2025-10-29 150541" src="https://github.com/user-attachments/assets/027c431e-95d2-46e4-99cc-c3ac5b6d5b42" />
  combination of existing cards.  
 3. **Shuffle decks** in a pseudo-random order.  
 4. **Draw cards** one by one, just like in a physical card game.  
@@ -32,85 +32,6 @@ Perfect for learning how Solidity structures (`struct`, `mapping`, etc.) and sma
 - 📜 **Transparency** – Every action (create, shuffle, draw) is public on the blockchain.  
 
 ---
-
-## 💻 Smart Contract Code
-Below is the Solidity code used in this project:
-
-```solidity
-//paste your code  
-// SPDX-License-Identifier: MIT
-pragma solidity ^0.8.20;
-
-/**
- * @title DeckChain - Decentralized Smart Deck Manager
- * @notice A decentralized manager for card-based games that allows users to create, shuffle, and draw from decks securely on-chain.
- * @dev This contract manages decks using verifiable randomness and on-chain data structures.
- */
-contract DeckChain {
-    struct Card {
-        uint256 id;
-        string name;
-        string metadata; // could be a URI or JSON string with attributes
-    }
-
-    struct Deck {
-        address owner;
-        uint256[] cardIds;
-        bool isShuffled;
-        uint256 drawIndex;
-    }
-
-    mapping(uint256 => Card) public cards;
-    mapping(uint256 => Deck) public decks;
-
-    uint256 private nextCardId = 1;
-    uint256 private nextDeckId = 1;
-
-    function createCard(string memory name, string memory metadata) external returns (uint256) {
-        uint256 cardId = nextCardId++;
-        cards[cardId] = Card(cardId, name, metadata);
-        return cardId;
-    }
-
-    function createDeck(uint256[] memory cardIds) external returns (uint256) {
-        require(cardIds.length > 0, "Deck must contain at least one card");
-        uint256 deckId = nextDeckId++;
-        decks[deckId] = Deck({
-            owner: msg.sender,
-            cardIds: cardIds,
-            isShuffled: false,
-            drawIndex: 0
-        });
-        return deckId;
-    }
-
-    function shuffleDeck(uint256 deckId) external {
-        Deck storage deck = decks[deckId];
-        require(msg.sender == deck.owner, "Not your deck");
-        require(!deck.isShuffled, "Already shuffled");
-        uint256 n = deck.cardIds.length;
-        for (uint256 i = 0; i < n; i++) {
-            uint256 j = uint256(keccak256(abi.encodePacked(block.timestamp, msg.sender, i))) % n;
-            (deck.cardIds[i], deck.cardIds[j]) = (deck.cardIds[j], deck.cardIds[i]);
-        }
-        deck.isShuffled = true;
-    }
-
-    function drawCard(uint256 deckId) external returns (Card memory card) {
-        Deck storage deck = decks[deckId];
-        require(msg.sender == deck.owner, "Not your deck");
-        require(deck.drawIndex < deck.cardIds.length, "No cards left");
-        uint256 cardId = deck.cardIds[deck.drawIndex];
-        deck.drawIndex++;
-        return cards[cardId];
-    }
+![Uploading Screenshot 2025-10-29 150541.png…]()
 
 
-
-
-    function remainingCards(uint256 deckId) external view returns (uint256) {
-        Deck storage deck = decks[deckId];
-        return deck.cardIds.length - deck.drawIndex;
-    }
-}
-# celo_pro
