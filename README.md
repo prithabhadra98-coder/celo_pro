@@ -35,3 +35,4 @@ Perfect for learning how Solidity structures (`struct`, `mapping`, etc.) and sma
 ![Uploading Screenshot 2025-10-29 150541.png…]()
 
 
+contract address: 0x1A3593fD1e4ab6005Fb5206d20e31752efAA30b7
